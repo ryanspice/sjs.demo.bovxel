@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html>
+<html >
+<body></body>
+<script rel="prefetch" type="application/x-javascript" src="data/game.js"></script>
+<script rel="prefetch" type="application/x-javascript" src="data/player.js"></script>
+<script rel="prefetch" type="application/x-javascript" src="data/spice.js"></script>
+<script rel="prefetch" name="main" type="text/javascript" defer>
+_Main.prototype = {
+	name:"Menu",
+	version:0.2,
+	thresh:160,
+	init:function() {
+		//Game.init(this.app);
+		this.app.ext.debug.toggle("off");
+		this.visuals.background_set("#FFFFFF");
+		this.a = 0;
+		this.state = 0;
+		this.iss = 0;
+		
+					if (!App.ext.useragent.ie){
+		this.track0 = new App.client._Audio.MultiChannelSound("intro.ogg",1);
+		this.track1 = new App.client._Audio.MultiChannelSound("loop.ogg",1);
+		this.track2 = new App.client._Audio.MultiChannelSound("bloop.ogg",100);
+		setTimeout(function(){
+			App.client._Main.track0.play();
+			//App.client._Audio.set(App.client._Main.track0);
+			},1000)}
+		return true;
+		},
+	update:function() {
+		this.a-=0.01;
+		this.iss+=0.1;
+		return true;
+		},
+	draw:function() {
+		this.thresh = 60/App.client.scale;
+		for (var i = 0;i<App.client.setWidth/10;i++)
+			for (var ii = 0;ii<App.client.setHeight/10;ii++)	{
+				if ((i/ii%3==0)) {
+					this.visuals.rect_ext(-0.5+(10.3*i),1+Math.sin(this.iss+10.3*ii),
+														10,10,1,0.5-Math.sin(this.a)*0.5,1,"#000000");
+					this.visuals.rect_ext(-0.5+(10.3*i),1-Math.sin(this.iss+10.3*ii),
+														15,10,1,0.2-Math.sin(this.a)*0.5,1,"#000000");
+					this.visuals.rect_ext(-0.5+(10.3*i),1+Math.sin(this.iss+10.3*ii),
+														20,7,1,0.2-Math.sin(this.a)*0.5,1,"#000000");
+					this.visuals.rect_ext(-0.5+(10.3*i),1+Math.sin(this.iss+10.3*ii),
+														31,2,1,0.2-Math.sin(this.a)*0.5,1,"#000000");
+														} else
+					this.visuals.rect_ext(-0.5+(10.3*i),1+(10.3*ii),
+														10,
+														10,
+														1,0.5+Math.sin(this.a)*0.5,1,"#000000");
+														}
+														
+														
+														
+														
+				for(is=0;is<65;is++)
+					this.visuals.rect_ext(0+(10.3*is),300+Math.sin(this.iss+10.3*is),
+														10,
+														10,
+														1,0.5+Math.sin(is)*0.5,1,"#000000")
+														
+		var q = 0,qq=0;
+		var fifty = 10;
+		q = App.ext.input.y/App.client.scale;
+		if (q<157.5)
+			q=157.5,qq=0;
+			else
+		if (q>217.5)
+			q=217.5,qq=2;
+			else
+		if ((q>185)||(q<187.5))
+			q= 187.5,qq=1;
+		this.visuals.text(App.client.name+" "+this.version,44,125,"#AAAAAA");
+		this.visuals.text(App.client.name+" "+this.version,46,125,"#AAAAAA");
+		this.visuals.text(App.client.name+" "+this.version,45,124,"#AAAAAA");
+		this.visuals.text(App.client.name+" "+this.version,45,126,"#AAAAAA");
+		this.visuals.text(App.client.name+" "+this.version,45,125,"#000000");
+		switch(this.state)
+		{
+		case 2:
+			this.visuals.text("RyanSpice",64,155,"#AAAAAA");
+			this.visuals.text("RyanSpice",66,155,"#AAAAAA");
+			this.visuals.text("RyanSpice",65,154,"#AAAAAA");
+			this.visuals.text("RyanSpice",65,156,"#AAAAAA");
+			this.visuals.text("RyanCox & Dan Rodriques",64,185,"#AAAAAA");
+			this.visuals.text("RyanCox & Dan Rodriques",66,185,"#AAAAAA");
+			this.visuals.text("RyanCox & Dan Rodriques",65,184,"#AAAAAA");
+			this.visuals.text("RyanCox & Dan Rodriques",65,186,"#AAAAAA");
+			this.visuals.text("Back",64,215,"#AAAAAA");
+			this.visuals.text("Back",66,215,"#AAAAAA");
+			this.visuals.text("Back",65,215,"#AAAAAA");
+			this.visuals.text("Back",65,215,"#AAAAAA");
+
+				this.visuals.text("RyanSpice",65,155,"#000000");
+
+				this.visuals.text("RyanCox & Dan Rodriques",65,185,"#000000");
+			if ((App.ext.input.pressed)&&(qq==2)&&(App.ext.input.dist.x>fifty))
+				this.visuals.text("Back",65+App.ext.input.dist.x,215,"#000000");
+				else
+				this.visuals.text("Back",65,215,"#000000");
+			if ((App.ext.input.dist.y<this.thresh)&&(App.ext.input.dist.y>-this.thresh))
+			{
+				if ((App.ext.input.pressed)&&(qq==0)&&(App.ext.input.dist.x>App.client.setWidth*0.3-fifty))
+					this.state = 2,App.ext.input.pressed=false;                                    
+				if ((App.ext.input.pressed)&&(qq==1)&&(App.ext.input.dist.x>App.client.setWidth*0.3-fifty))
+					App.ext.input.pressed=false;                                                  
+				if ((App.ext.input.pressed)&&(qq==2)&&(App.ext.input.dist.x>App.client.setWidth*0.3-fifty))
+					this.state = 0,App.ext.input.pressed=false;
+			}
+		break;
+		case 1:
+			this.visuals.text("Audio",64,155,"#AAAAAA");
+			this.visuals.text("Audio",66,155,"#AAAAAA");
+			this.visuals.text("Audio",65,154,"#AAAAAA");
+			this.visuals.text("Audio",65,156,"#AAAAAA");
+			//this.visuals.text("Framerate",64,185,"#AAAAAA");
+			//this.visuals.text("Framerate",66,185,"#AAAAAA");
+			//this.visuals.text("Framerate",65,184,"#AAAAAA");
+			//this.visuals.text("Framerate",65,186,"#AAAAAA");
+			this.visuals.text("Back",64,215,"#AAAAAA");
+			this.visuals.text("Back",66,215,"#AAAAAA");
+			this.visuals.text("Back",65,215,"#AAAAAA");
+			this.visuals.text("Back",65,215,"#AAAAAA");
+			
+			if ((App.ext.input.pressed)&&(qq==0)&&(App.ext.input.dist.x>fifty))
+				this.visuals.text("Audio",65+App.ext.input.dist.x,155,"#000000");
+				else
+				this.visuals.text("Audio",65,155,"#000000");
+			this.visuals.rect(165,152.5,30,14,"DDD");
+			
+			//if ((App.ext.input.pressed)&&(qq==1)&&(App.ext.input.dist.x>fifty))
+			//	this.visuals.text("Framerate",65+App.ext.input.dist.x,185,"#000000");
+			//	else
+			//	this.visuals.text("Framerate",65,185,"#000000");
+			if ((App.ext.input.pressed)&&(qq==2)&&(App.ext.input.dist.x>fifty))
+				this.visuals.text("Back",65+App.ext.input.dist.x,215,"#000000");
+				else
+				this.visuals.text("Back",65,215,"#000000");
+			if ((App.ext.input.dist.y<this.thresh)&&(App.ext.input.dist.y>-this.thresh))
+			{
+				if ((App.ext.input.pressed)&&(qq==0)&&(App.ext.input.dist.x>App.client.setWidth*0.3-fifty))
+					App.client._Audio.mute=!App.client._Audio.mute,App.ext.input.pressed=false;
+				if ((App.ext.input.pressed)&&(qq==1)&&(App.ext.input.dist.x>App.client.setWidth*0.3-fifty))
+					this.state = 1,App.ext.input.pressed=false;
+				if ((App.ext.input.pressed)&&(qq==2)&&(App.ext.input.dist.x>App.client.setWidth*0.3-fifty))
+					this.state = 0,App.ext.input.pressed=false;
+			}
+			//App.client._Audio.mute?this.visuals.rect(165-15,152.5,10,14,"#000000"):this.visuals.rect(165+15,152.5,10,14,"#000000");
+			!App.client._Audio.mute?this.visuals.rect(165-15,152.5,10,14,"#000000"):this.visuals.rect(165+15,152.5,10,14,"#000000");
+		break;
+		case 0:
+				
+			this.visuals.text("Play",64,155,"#AAAAAA");
+			this.visuals.text("Play",66,155,"#AAAAAA");
+			this.visuals.text("Play",65,154,"#AAAAAA");
+			this.visuals.text("Play",65,156,"#AAAAAA");
+			
+			if ((App.ext.input.pressed)&&(qq==0)&&(App.ext.input.dist.x>fifty))
+				this.visuals.text("Play",65+App.ext.input.dist.x,155,"#000000");
+				else
+				this.visuals.text("Play",65,155,"#000000");
+			
+			
+			
+			this.visuals.text("Settings",64,185,"#AAAAAA");
+			this.visuals.text("Settings",66,185,"#AAAAAA");
+			this.visuals.text("Settings",65,184,"#AAAAAA");
+			this.visuals.text("Settings",65,186,"#AAAAAA");
+			
+			if ((App.ext.input.pressed)&&(qq==1)&&(App.ext.input.dist.x>fifty))
+				this.visuals.text("Settings",65+App.ext.input.dist.x,185,"#000000");
+				else
+				this.visuals.text("Settings",65,185,"#000000");
+			
+			this.visuals.text("About",64,215,"#AAAAAA");
+			this.visuals.text("About",66,215,"#AAAAAA");
+			this.visuals.text("About",65,215,"#AAAAAA");
+			this.visuals.text("About",65,215,"#AAAAAA");
+			
+			if ((App.ext.input.pressed)&&(qq==2)&&(App.ext.input.dist.x>fifty))
+				this.visuals.text("About",65+App.ext.input.dist.x,215,"#000000");
+				else
+				this.visuals.text("About",65,215,"#000000");
+			if ((App.ext.input.dist.y<this.thresh)&&(App.ext.input.dist.y>-this.thresh))
+			{
+			if ((App.ext.input.pressed)&&(qq==0)&&(App.ext.input.dist.x>App.client.setWidth*0.3-fifty))
+				this.app.client.update.state.set(Game),App.ext.input.pressed=false;
+			if ((App.ext.input.pressed)&&(qq==1)&&(App.ext.input.dist.x>App.client.setWidth*0.3-fifty))
+				this.state = 1,App.ext.input.pressed=false;             
+			if ((App.ext.input.pressed)&&(qq==2)&&(App.ext.input.dist.x>App.client.setWidth*0.3-fifty))
+				this.state = 2,App.ext.input.pressed=false;
+			}
+			
+		break;
+		}
+			this.visuals.text("*",55,q,"#000000");
+		return true;
+		}
+};
+App.init("Bovxel",480,320);
+</script>
+</html>
